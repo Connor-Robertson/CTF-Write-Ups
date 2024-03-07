@@ -5,5 +5,4 @@
 - Please reach out if there is a challenge you particularly like, or where you feel that a better solve to a challenge is available.
 
 
-All the Best
-- Connor. 
+All the Best - Connor. 
