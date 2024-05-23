@@ -1,0 +1,24 @@
+Chainsaw is a Windows Event Log parsing tool, that can be leveraged to search logs for specific event ID's, or using Sigma rules, match events where suspicious activity has been identified. 
+
+I used chainsaw for the first time during a HTB business CTF challenge named Carving. 
+- The purpose of this challenge was to "Carve" windows event logs, looking for anything suspicious. 
+
+Using Chainsaw, and Sigma rules (Downloaded from another repo - A sigma rule contains logic and conditions, that if met, can identify if suspicious behaviour has occurred.)
+- I ran Chainsaw with the following conditions:
+`chainsaw.exe hunt -s "Z:\CTF Shared Folder-2\tools-and-add-ons\sigma-rules\sigma" -m mappings/sigma-event-logs-all.yml Logs/ --full`
+
+Hunt - The specific flag that tells chainsaw to hunt through the artefacts(Logs) using detection rules for threat detection (In this case Sigma)
+-s: A path containing Sigma rules to hunt with
+-m: A mapping file to tell Chainsaw how to use third-party rules
+Logs: The path to the logs
+--full: To print the full content of each finding
+
+I then editted this to dump the results of this search into a CSV using:
+chainsaw.exe hunt -s "Z:\CTF Shared Folder-2\tools-and-add-ons\sigma-rules\sigma" -m mappings/sigma-event-logs-all.yml "Z:\CTF Shared Folder-2\business-ctf-2024-main\business-ctf-2024-main\forensics\[Very Easy] Caving\release\forensics_caving\Logs" --full --output output_folder --csv
+
+Then, I was able to parse for suspicious actions, which lead me to come across a Sigma hit for Suspicious PowerShell Download - Powershell Script;Suspicious PowerShell Invocations - Specific;Usage Of Web Request Commands And Cmdlets
+- Drilling down into the script that was executed in order to get this detection to alert, found 
+
+After analyzing the script we can identify that when downloading the next stage from http://heist.htb/Exposure/plan.jpg, the attacker adds two headers. The first is the user-agent and the second one is a custom cookie which looks like this f=SFRCezFudHJ1UzEwbl9kM3QzY3QzZF8hISF9. Let's decode it.
+
+HTB{1ntruS10n_d3t3ct3d_!!!}
