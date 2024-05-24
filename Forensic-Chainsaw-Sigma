@@ -22,3 +22,7 @@ Then, I was able to parse for suspicious actions, which lead me to come across a
 After analyzing the script we can identify that when downloading the next stage from http://heist.htb/Exposure/plan.jpg, the attacker adds two headers. The first is the user-agent and the second one is a custom cookie which looks like this f=SFRCezFudHJ1UzEwbl9kM3QzY3QzZF8hISF9. Let's decode it.
 
 HTB{1ntruS10n_d3t3ct3d_!!!}
+
+Edit:
+I found a faster way to identify the suspicious log. 
+- Once chainsaw has run and outputted the results into a CSV, run findstr "Suspicious" filename - Which will identify the entry that was deemed suspicious. This is the equiv of grep in Linux. 
